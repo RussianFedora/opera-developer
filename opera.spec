@@ -1,7 +1,9 @@
+%define debug_package %{nil}
+
 Summary:	Web Browser for Linux
 Summary(ru):	Веб-браузер для Linux
 Name:		opera-developer
-Version:	24.0.1543.0
+Version:	24.0.1555.0
 Release:	1%{dist}
 Epoch:		5
 
@@ -9,9 +11,9 @@ Group:		Applications/Internet
 License:	Proprietary
 URL:		http://www.opera.com/browser
 Source0:	ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
-Source1:	%{name}.desktop
-Source2:	http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.1-4ubuntu5.16_amd64.deb
-Source3:	http://de.archive.ubuntu.com/ubuntu/pool/main/u/udev/libudev0_175-0ubuntu9.5_amd64.deb
+Source1:	http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.1-4ubuntu5.16_amd64.deb
+Source2:	opera_autoupdate
+Source3:	opera_crashreporter
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	dpkg
@@ -44,21 +46,20 @@ ExclusiveArch:	x86_64
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}
+
+# Extract DEB packages:
 pushd %{buildroot}
 ar p %{SOURCE0} data.tar.xz | xz -d > %{name}-%{version}.x86_64.tar
 tar -xf %{name}-%{version}.x86_64.tar
-
 mkdir libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-dpkg --extract %{SOURCE2} libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-
-mkdir libudev-0_175-0ubuntu9.5.x86_64
-dpkg --extract %{SOURCE3} libudev-0_175-0ubuntu9.5.x86_64
+dpkg --extract %{SOURCE1} libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
 popd
 
+# Modify DOC directory and *.desktop file:
 mv %{buildroot}%{_datadir}/doc/%{name} %{buildroot}%{_datadir}/doc/%{name}-%{version}
-rm %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -m 755 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -e 's/TargetEnvironment=Unity/#TargetEnvironment=Unity/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+# Install *.desktop file:
 desktop-file-install --vendor rfremix \
   --dir %{buildroot}%{_datadir}/applications \
   --add-category Network \
@@ -67,28 +68,39 @@ desktop-file-install --vendor rfremix \
   --delete-original \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+# Rename %{_libdir} according to Arch:
 mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
+
+# Install bundled dependencies on libs from Ubuntu 12.04:
 mkdir -p %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib
-#ln -s /usr/lib64/libudev.so.1 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libudev.so.0
-#ln -s /usr/lib64/libssl.so.10 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libssl.so.1.0.0
-#ln -s /usr/lib64/libcrypto.so.10 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libcrypto.so.1.0.0
-cp %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libcrypto.so.1.0.0
-cp %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libssl.so.1.0.0
-cp %{buildroot}/libudev-0_175-0ubuntu9.5.x86_64/lib/x86_64-linux-gnu/libudev.so.0.13.0 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libudev.so.0.13.0
-cd %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib
-ln -s libudev.so.0.13.0 libudev.so.0
-#cp %{buildroot}/libudev-0_175-0ubuntu9.5.x86_64/lib/x86_64-linux-gnu/libudev.so.0 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib/libudev.so.0
+pushd %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib
+ln -s ../../../libudev.so.1 libudev.so.0
+mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto.so.1.0.0
+mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 libssl.so.1.0.0
+popd
 
-#chmod 4755 %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/opera_sandbox
+# Add wrapper scripts for opera_autoupdate and opera_crashreporter binaries:
+pushd %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}
+mv opera_autoupdate opera_autoupdate_orig
+mv opera_crashreporter opera_crashreporter_orig
+install -m 755 %{SOURCE2} opera_autoupdate
+install -m 755 %{SOURCE3} opera_crashreporter
+chmod +x opera_autoupdate
+chmod +x opera_crashreporter
+popd
 
-rm %{buildroot}%{_bindir}/%{name}
-cd %{buildroot}%{_bindir}
-ln -s ../lib64/x86_64-linux-gnu/%{name}/opera %{buildroot}%{_bindir}/%{name}
+# Fix symlink:
+pushd %{buildroot}%{_bindir}
+rm %{name}
+ln -s ../lib64/x86_64-linux-gnu/%{name}/opera %{name}
+popd
 
+# Remove unused directories and tarball:
 pushd %{buildroot}
 rm %{name}-%{version}.x86_64.tar
 rm -rf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-rm -rf libudev-0_175-0ubuntu9.5.x86_64
+rm -rf %{buildroot}%{_datadir}/lintian
+rm -rf %{buildroot}%{_datadir}/menu
 popd
 
 %post
@@ -99,7 +111,6 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
   /usr/bin/gtk-update-icon-cache --quiet /usr/share/icons/hicolor || :
 fi
 
-
 %postun
 if [ $1 -eq 0 ] ; then
     touch --no-create /usr/share/icons/hicolor &>/dev/null
@@ -107,10 +118,8 @@ if [ $1 -eq 0 ] ; then
 fi
 update-desktop-database &> /dev/null || :
 
-
 %posttrans
 gtk-update-icon-cache /usr/share/icons/hicolor &>/dev/null || :
-
 
 %clean
 rm -rf %{buildroot}
@@ -121,11 +130,17 @@ rm -rf %{buildroot}
 %{_libdir}/x86_64-linux-gnu/%{name}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/*
-%{_datadir}/lintian/overrides/*
-%{_datadir}/menu/*
+#%{_datadir}/lintian/overrides/*
+#%{_datadir}/menu/*
 %{_datadir}/pixmaps/*
 
 %changelog
+* Fri Jun 27 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:24.0.1555.0-1
+- Update to 24.0.1555.0
+- Remove bundled libudev.so.0 from Ubuntu 12.04
+- Add wrapper scripts for opera_autoupdate and opera_crashreporter binaries
+- Clean up spec file
+
 * Fri Jun 27 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:24.0.1543.0-1
 - Update to 24.0.1543.0
 

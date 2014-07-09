@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+#A wrapper script for the workaround a missing opera_autoupdate RPATH.
+PATHORIG=${PATH}
+PATH=/usr/lib64/x86_64-linux-gnu/opera-developer:/usr/lib64/x86_64-linux-gnu/opera-developer/lib:${PATH}
+LD_LIBRARY_PATH=/usr/lib64/x86_64-linux-gnu/opera-developer/lib opera_autoupdate_orig
+PATH=${PATHORIG}
