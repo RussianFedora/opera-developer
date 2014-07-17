@@ -3,7 +3,7 @@
 Summary:	Web Browser for Linux
 Summary(ru):	Веб-браузер для Linux
 Name:		opera-developer
-Version:	24.0.1555.0
+Version:	24.0.1558.3
 Release:	1%{dist}
 Epoch:		5
 
@@ -135,6 +135,10 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jul 17 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.3-1
+- Update to 24.0.1558.3
+- Correct build arch
+
 * Fri Jun 27 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:24.0.1555.0-1
 - Update to 24.0.1555.0
 - Remove bundled libudev.so.0 from Ubuntu 12.04
