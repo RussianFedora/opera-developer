@@ -25,6 +25,8 @@ Provides:	libssl.so.1.0.0(OPENSSL_1.0.0)(64bit)
 Provides:	libssl.so.1.0.0(OPENSSL_1.0.1)(64bit)
 Provides:	libudev.so.0()(64bit)
 
+ExclusiveArch:    x86_64
+
 %description
 Opera is a fast, secure and user-friendly web browser. It
 includes web developer tools, news aggregation, and the ability
@@ -35,8 +37,6 @@ Opera — это быстрый, безопасный и дружественн�
 веб-браузер. Он включает средства веб-разработки и сбора новостей,
 а также возможность сжимать трафик в перегруженных сетях
 посредством технологии Opera Turbo.
-
-ExclusiveArch:	x86_64
 
 %prep
 %setup -q -c -T
