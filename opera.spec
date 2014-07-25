@@ -1,29 +1,29 @@
 %define debug_package %{nil}
 
-Summary:	Web Browser for Linux
-Summary(ru):	Веб-браузер для Linux
-Name:		opera-developer
-Version:	24.0.1558.3
-Release:	1%{dist}
-Epoch:		5
+Summary:        Web Browser for Linux
+Summary(ru):    Веб-браузер для Linux
+Name:           opera-developer
+Version:    24.0.1558.17
+Release:    1%{dist}
+Epoch:      5
 
-Group:		Applications/Internet
-License:	Proprietary
-URL:		http://www.opera.com/browser
-Source0:	ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
-Source1:	http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.1-4ubuntu5.16_amd64.deb
-Source2:	opera_autoupdate
-Source3:	opera_crashreporter
+Group:      Applications/Internet
+License:    Proprietary
+URL:        http://www.opera.com/browser
+Source0:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
+Source1:    http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.1-4ubuntu5.16_amd64.deb
+Source2:    opera_autoupdate
+Source3:    opera_crashreporter
 
-BuildRequires:	desktop-file-utils
-BuildRequires:	dpkg
+BuildRequires:  desktop-file-utils
+BuildRequires:  dpkg
 
-Provides:	libcrypto.so.1.0.0()(64bit)
-Provides:	libcrypto.so.1.0.0(OPENSSL_1.0.0)(64bit)
-Provides:	libssl.so.1.0.0()(64bit)
-Provides:	libssl.so.1.0.0(OPENSSL_1.0.0)(64bit)
-Provides:	libssl.so.1.0.0(OPENSSL_1.0.1)(64bit)
-Provides:	libudev.so.0()(64bit)
+Provides:   libcrypto.so.1.0.0()(64bit)
+Provides:   libcrypto.so.1.0.0(OPENSSL_1.0.0)(64bit)
+Provides:   libssl.so.1.0.0()(64bit)
+Provides:   libssl.so.1.0.0(OPENSSL_1.0.0)(64bit)
+Provides:   libssl.so.1.0.0(OPENSSL_1.0.1)(64bit)
+Provides:   libudev.so.0()(64bit)
 
 ExclusiveArch:    x86_64
 
@@ -135,6 +135,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Fri Jul 25 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.17-1
+- Update to 24.0.1558.17
+
 * Thu Jul 17 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.3-1
 - Update to 24.0.1558.3
 - Correct build arch
