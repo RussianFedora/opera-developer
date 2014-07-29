@@ -3,7 +3,7 @@
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
-Version:    24.0.1558.17
+Version:    24.0.1558.21
 Release:    1%{dist}
 Epoch:      5
 
@@ -58,6 +58,7 @@ popd
 # Modify DOC directory and *.desktop file:
 mv %{buildroot}%{_datadir}/doc/%{name} %{buildroot}%{_datadir}/doc/%{name}-%{version}
 sed -e 's/TargetEnvironment=Unity/#TargetEnvironment=Unity/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -e 's/Exec=opera-developer/Exec=opera-developer\ --force-native-window-frame=false/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # Install *.desktop file:
 desktop-file-install --vendor rfremix \
@@ -135,6 +136,10 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Tue Jul 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:24.0.1558.21-1
+- Update to 24.0.1558.21
+- Add  --force-native-window-frame=false to EXEC string at *.desktop file
+
 * Fri Jul 25 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.17-1
 - Update to 24.0.1558.17
 
