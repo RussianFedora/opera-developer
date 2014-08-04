@@ -4,7 +4,7 @@ Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
 Version:    24.0.1558.21
-Release:    2%{dist}
+Release:    3%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -16,7 +16,6 @@ Source2:    opera_autoupdate
 Source3:    opera_crashreporter
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  dpkg
 
 Provides:   libcrypto.so.1.0.0()(64bit)
 Provides:   libcrypto.so.1.0.0(OPENSSL_1.0.0)(64bit)
@@ -49,10 +48,13 @@ mkdir -p %{buildroot}
 
 # Extract DEB packages:
 pushd %{buildroot}
-ar p %{SOURCE0} data.tar.xz | xz -d > %{name}-%{version}.x86_64.tar
-tar -xf %{name}-%{version}.x86_64.tar
-mkdir libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-dpkg --extract %{SOURCE1} libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
+    ar p %{SOURCE0} data.tar.xz | xz -d > %{name}-%{version}.x86_64.tar
+    tar -xf %{name}-%{version}.x86_64.tar
+    mkdir libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
+    pushd libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
+        ar p %{SOURCE1} data.tar.gz | gzip -d > libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64.tar
+        tar -xf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64.tar
+    popd
 popd
 
 # Modify DOC directory and *.desktop file:
@@ -136,6 +138,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Aug 04 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.21-3
+- Remove BR: dpkg
+
 * Tue Jul 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:24.0.1558.21-2
 - Hot fix: application icon does not appear in the KDE menu
 
