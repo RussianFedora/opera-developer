@@ -3,8 +3,8 @@
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
-Version:    24.0.1558.21
-Release:    3%{dist}
+Version:    25.0.1583.1
+Release:    1%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -57,6 +57,11 @@ pushd %{buildroot}
     popd
 popd
 
+# Move /usr/lib/x86_64-linux-gnu/%{name} to %{_libdir}:
+mv %{buildroot}/usr/lib/x86_64-linux-gnu/%{name} %{buildroot}/usr/lib/
+rm -rf %{buildroot}/usr/lib/x86_64-linux-gnu
+mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
+
 # Modify DOC directory and *.desktop file:
 mv %{buildroot}%{_datadir}/doc/%{name} %{buildroot}%{_datadir}/doc/%{name}-%{version}
 sed -e 's/TargetEnvironment=Unity/#TargetEnvironment=Unity/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -71,47 +76,50 @@ desktop-file-install --vendor rfremix \
   --delete-original \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# Rename %{_libdir} according to Arch:
-mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
-
 # Install bundled dependencies on libs from Ubuntu 12.04:
-mkdir -p %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib
-pushd %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}/lib
-ln -s ../../../libudev.so.1 libudev.so.0
-mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto.so.1.0.0
-mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 libssl.so.1.0.0
+mkdir -p %{buildroot}%{_libdir}/%{name}/lib
+pushd %{buildroot}%{_libdir}/%{name}/lib
+    ln -s ../../libudev.so.1 libudev.so.0
+    mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto.so.1.0.0
+    mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 libssl.so.1.0.0
 popd
 
 # Add wrapper scripts for opera_autoupdate and opera_crashreporter binaries:
-pushd %{buildroot}%{_libdir}/x86_64-linux-gnu/%{name}
-mv opera_autoupdate opera_autoupdate_orig
-mv opera_crashreporter opera_crashreporter_orig
-install -m 755 %{SOURCE2} opera_autoupdate
-install -m 755 %{SOURCE3} opera_crashreporter
-chmod +x opera_autoupdate
-chmod +x opera_crashreporter
+pushd %{buildroot}%{_libdir}/%{name}
+    mv opera_autoupdate opera_autoupdate_orig
+    mv opera_crashreporter opera_crashreporter_orig
+    install -m 755 %{SOURCE2} opera_autoupdate
+    install -m 755 %{SOURCE3} opera_crashreporter
+    chmod +x opera_autoupdate
+    chmod +x opera_crashreporter
 popd
 
 # Fix symlink:
 pushd %{buildroot}%{_bindir}
-rm %{name}
-ln -s ../lib64/x86_64-linux-gnu/%{name}/opera %{name}
+    rm %{name}
+    %ifarch x86_64
+        ln -s ../lib64/%{name}/%{name} %{name}
+    %else
+        ln -s ../lib/%{name}/%{name} %{name}
+    %endif
 popd
+
+# Fix <opera_sandbox> attributes:
+chmod 4755 %{buildroot}%{_libdir}/%{name}/opera_sandbox
 
 # Remove unused directories and tarball:
 pushd %{buildroot}
-rm %{name}-%{version}.x86_64.tar
-rm -rf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-rm -rf %{buildroot}%{_datadir}/lintian
-rm -rf %{buildroot}%{_datadir}/menu
+    rm %{name}-%{version}.x86_64.tar
+    rm -rf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
+    rm -rf %{buildroot}%{_datadir}/lintian
+    rm -rf %{buildroot}%{_datadir}/menu
 popd
 
 %post
-chmod 4755 /usr/lib64/x86_64-linux-gnu/opera-developer/opera_sandbox
 update-desktop-database &> /dev/null || :
 touch --no-create /usr/share/icons/hicolor &>/dev/null || :
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  /usr/bin/gtk-update-icon-cache --quiet /usr/share/icons/hicolor || :
+    /usr/bin/gtk-update-icon-cache --quiet /usr/share/icons/hicolor || :
 fi
 
 %postun
@@ -130,14 +138,17 @@ rm -rf %{buildroot}
 %files
 %{_defaultdocdir}/%{name}-%{version}
 %{_bindir}/%{name}
-%{_libdir}/x86_64-linux-gnu/%{name}/*
+%{_libdir}/%{name}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/*
-#%{_datadir}/lintian/overrides/*
-#%{_datadir}/menu/*
 %{_datadir}/pixmaps/*
 
 %changelog
+* Fri Aug 08 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:25.0.1583.1-1
+- Update to 25.0.1583.1
+- Move /usr/lib/x86_64-linux-gnu/%{name} to %{_libdir}
+- Clean up spec file
+
 * Mon Aug 04 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 5:24.0.1558.21-3
 - Remove BR: dpkg
 
