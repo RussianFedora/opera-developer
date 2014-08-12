@@ -1,17 +1,18 @@
 %define debug_package %{nil}
+%define libssl_ubuntu libssl1.0.0_1.0.1-4ubuntu5.17
 
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
 Version:    25.0.1583.1
-Release:    1%{dist}
+Release:    2%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
 License:    Proprietary
 URL:        http://www.opera.com/browser
 Source0:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
-Source1:    http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.1-4ubuntu5.16_amd64.deb
+Source1:    http://de.archive.ubuntu.com/ubuntu/pool/main/o/openssl/%{libssl_ubuntu}_amd64.deb
 Source2:    opera_autoupdate
 Source3:    opera_crashreporter
 
@@ -50,10 +51,10 @@ mkdir -p %{buildroot}
 pushd %{buildroot}
     ar p %{SOURCE0} data.tar.xz | xz -d > %{name}-%{version}.x86_64.tar
     tar -xf %{name}-%{version}.x86_64.tar
-    mkdir libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-    pushd libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
-        ar p %{SOURCE1} data.tar.gz | gzip -d > libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64.tar
-        tar -xf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64.tar
+    mkdir %{libssl_ubuntu}.x86_64
+    pushd %{libssl_ubuntu}.x86_64
+        ar p %{SOURCE1} data.tar.gz | gzip -d > %{libssl_ubuntu}.x86_64.tar
+        tar -xf %{libssl_ubuntu}.x86_64.tar
     popd
 popd
 
@@ -80,8 +81,8 @@ desktop-file-install --vendor rfremix \
 mkdir -p %{buildroot}%{_libdir}/%{name}/lib
 pushd %{buildroot}%{_libdir}/%{name}/lib
     ln -s ../../libudev.so.1 libudev.so.0
-    mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto.so.1.0.0
-    mv %{buildroot}/libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 libssl.so.1.0.0
+    mv %{buildroot}/%{libssl_ubuntu}.x86_64/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto.so.1.0.0
+    mv %{buildroot}/%{libssl_ubuntu}.x86_64/lib/x86_64-linux-gnu/libssl.so.1.0.0 libssl.so.1.0.0
 popd
 
 # Add wrapper scripts for opera_autoupdate and opera_crashreporter binaries:
@@ -110,7 +111,7 @@ chmod 4755 %{buildroot}%{_libdir}/%{name}/opera_sandbox
 # Remove unused directories and tarball:
 pushd %{buildroot}
     rm %{name}-%{version}.x86_64.tar
-    rm -rf libssl-1.0.0_1.0.1-4ubuntu5.16.x86_64
+    rm -rf %{libssl_ubuntu}.x86_64
     rm -rf %{buildroot}%{_datadir}/lintian
     rm -rf %{buildroot}%{_datadir}/menu
 popd
@@ -144,6 +145,10 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Tue Aug 12 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:25.0.1583.1-2
+- Update bundled libssl from Ubuntu 12.04 to 1.0.0_1.0.1-4ubuntu5.17
+- Clean up spec file
+
 * Fri Aug 08 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:25.0.1583.1-1
 - Update to 25.0.1583.1
 - Move /usr/lib/x86_64-linux-gnu/%{name} to %{_libdir}
