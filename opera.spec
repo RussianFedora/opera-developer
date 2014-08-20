@@ -4,7 +4,7 @@
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
-Version:    25.0.1592.0
+Version:    25.0.1597.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -145,6 +145,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Wed Aug 20 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:25.0.1597.0-1
+- Update to 25.0.1597.0
+
 * Sun Aug 17 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:25.0.1592.0-1
 - Update to 25.0.1592.0
 
