@@ -1,10 +1,10 @@
 %define debug_package %{nil}
-%define libssl_ubuntu libssl1.0.0_1.0.1-4ubuntu5.17
+%define libssl_ubuntu libssl1.0.0_1.0.1-4ubuntu5.18
 
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
-Version:    26.0.1632.0
+Version:    26.0.1646.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -145,6 +145,10 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Tue Oct 07 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:26.0.1646.0-1
+- Update to 26.0.1646.0
+- Update bundled libssl from Ubuntu 12.04 to 1.0.0_1.0.1-4ubuntu5.18
+
 * Wed Sep 24 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:26.0.1632.0-1
 - Update to 26.0.1632.0
 - Rename *.spec file to <opera-developer.spec>
