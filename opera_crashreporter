@@ -1,7 +1,0 @@
-#!/usr/bin/sh
-#A wrapper script for the workaround a missing opera_crashreporter RPATH.
-PATHORIG=${PATH}
-PATH=/usr/lib64/opera-developer:/usr/lib64/opera-developer/lib:${PATH}
-LD_LIBRARY_PATH=/usr/lib64/opera-developer/lib opera_crashreporter_orig
-PATH=${PATHORIG}
-exit 0
