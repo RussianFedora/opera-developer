@@ -5,7 +5,7 @@ Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
 Version:    27.0.1689.22
-Release:    1%{dist}
+Release:    2%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -17,6 +17,7 @@ Source0:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_
 #Source3:    opera_crashreporter
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  chrpath
 
 Provides:   libcrypto.so.1.0.0()(64bit)
 Provides:   libcrypto.so.1.0.0(OPENSSL_1.0.0)(64bit)
@@ -152,6 +153,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Wed Dec 10 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:27.0.1689.22-2
+- Add BR: chrpath
+
 * Fri Dec 05 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:27.0.1689.22-1
 - Update to 26.0.1689.22
 - Remove wrapper scripts for opera_autoupdate and opera_crashreporter binaries
