@@ -4,7 +4,7 @@ Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
 Version:    28.0.1719.0
-Release:    2%{dist}
+Release:    3%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
