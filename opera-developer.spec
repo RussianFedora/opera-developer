@@ -176,7 +176,7 @@ rm -rf %{buildroot}
 - Remove wrapper scripts for opera_autoupdate and opera_crashreporter binaries
 - Remove bundled libs from Ubuntu 12.04
 
-* Thu Dec 02 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:27.0.1689.13-1
+* Tue Dec 02 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:27.0.1689.13-1
 - Update to 27.0.1689.13
 
 * Thu Nov 20 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:27.0.1689.2-1
