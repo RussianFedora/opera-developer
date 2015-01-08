@@ -3,8 +3,8 @@
 Summary:        Web Browser for Linux
 Summary(ru):    Веб-браузер для Linux
 Name:           opera-developer
-Version:    28.0.1719.0
-Release:    4.1%{dist}
+Version:    28.0.1738.0
+Release:    1%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -146,6 +146,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Dec 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1738.0-1
+- Update to 28.0.1738.0
+
 * Mon Dec 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1719.0-4.1
 - Remove <icon>, <categories> and <architectures> sections from *.appdata.xml
 
