@@ -149,7 +149,7 @@ rm -rf %{buildroot}
 * Fri Jan 16 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1745.0-1
 - Update to 28.0.1745.0
 
-* Fri Jan 09 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1738.0-1
+* Fri Jan 09 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1738.0-1
 - Update to 28.0.1738.0
 
 * Mon Dec 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1719.0-4.1
