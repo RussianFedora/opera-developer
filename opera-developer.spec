@@ -1,9 +1,9 @@
 %define debug_package %{nil}
 
-Summary:        Web Browser for Linux
-Summary(ru):    Веб-браузер для Linux
+Summary:        Fast and secure web browser (Developer stream)
+Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    28.0.1738.0
+Version:    28.0.1745.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -146,7 +146,10 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
-* Mon Dec 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1738.0-1
+* Fri Jan 16 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1745.0-1
+- Update to 28.0.1745.0
+
+* Fri Jan 09 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1738.0-1
 - Update to 28.0.1738.0
 
 * Mon Dec 29 2014 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:28.0.1719.0-4.1
