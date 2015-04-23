@@ -1,11 +1,11 @@
-%global build_for_x86_64 0
+%global build_for_x86_64 1
 %global build_for_i386 1
 %define debug_package %{nil}
 
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    30.0.1833.0
+Version:    30.0.1835.6
 Release:    1%{dist}
 Epoch:      5
 
@@ -143,9 +143,7 @@ popd
 %if 0%{?fedora} >= 20
     mkdir -p %{buildroot}%{_datadir}/appdata
     install -pm 644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/rfremix-%{name}.appdata.xml
-%endif
 
-%if 0%{?fedora} >= 20
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/rfremix-%{name}.appdata.xml
 %endif
@@ -182,6 +180,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Apr 15 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:30.0.1835.6-1
+- Update to 30.0.1835.6
+
 * Wed Apr 15 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:30.0.1833.0-1
 - Update to 30.0.1833.0
 - Add i386 support
