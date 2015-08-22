@@ -1,13 +1,13 @@
 %global build_for_x86_64 1
 %global build_for_i386 1
 %define debug_package %{nil}
-%define major_ver 32
+%define major_ver 33
 
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    %{major_ver}.0.1933.0
-Release:    2%{dist}
+Version:    %{major_ver}.0.1963.0
+Release:    1%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -189,6 +189,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sat Aug 22 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:33.0.1963.0-1
+- Update to 33.0.1963.0
+
 * Sat Aug 08 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:32.0.1933.0-2
 - Add Provides: libssl.so.1.0.0
 - Fix <provides> section for 32 bit builds
