@@ -2,12 +2,11 @@
 %global build_for_i386 1
 %global build_from_rpm 1
 %define debug_package %{nil}
-%define major_ver 35
 
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    %{major_ver}.0.2060.0
+Version:    35.0.2064.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -48,12 +47,12 @@ BuildRequires:  libappstream-glib
 Provides:   libssl.so.1.0.0()(64bit)
 Provides:   libssl.so.1.0.0(OPENSSL_1.0.0)(64bit)
 Provides:   libssl.so.1.0.0(OPENSSL_1.0.1)(64bit)
-Provides:   libffmpeg.so.%{major_ver}()(64bit)
+Provides:   libffmpeg.so()(64bit)
 %else
 Provides:   libssl.so.1.0.0
 Provides:   libssl.so.1.0.0(OPENSSL_1.0.0)
 Provides:   libssl.so.1.0.0(OPENSSL_1.0.1)
-Provides:   libffmpeg.so.%{major_ver}
+Provides:   libffmpeg.so
 %endif
 
 %if 0%{?build_for_x86_64}
@@ -217,6 +216,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu Dec 03 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:35.0.2064.0-1
+- Update to 35.0.2064.0
+
 * Fri Nov 27 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:35.0.2060.0-1
 - Update to 35.0.2060.0
 
