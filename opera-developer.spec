@@ -7,7 +7,7 @@ Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
 Version:    36.0.2106.0
-Release:    1%{dist}
+Release:    2%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -54,6 +54,9 @@ Provides:   libssl.so.1.0.0(OPENSSL_1.0.0)
 Provides:   libssl.so.1.0.0(OPENSSL_1.0.1)
 Provides:   libffmpeg.so
 %endif
+
+Requires:   chromium-libffmpeg
+Obsoletes:  %{name}-libffmpeg
 
 %if 0%{?build_for_x86_64}
 %if !0%{?build_for_i386}
@@ -216,6 +219,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jan 20 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:36.0.2106.0-2
+- Add Requires: chromium-libffmpeg & Obsoletes: %{name}-libffmpeg
+
 * Wed Jan 13 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:36.0.2106.0-1
 - Update to 36.0.2106.0
 
