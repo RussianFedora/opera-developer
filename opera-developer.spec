@@ -118,14 +118,14 @@ popd
     %endif
 %endif
 
-# Modify DOC directory and *.desktop file:
+# Modify DOC directory, *.desktop file and ffmpeg_preload_config.json:
 if [ -d %{buildroot}%{_datadir}/doc/%{name}/ ]; then
     mv %{buildroot}%{_datadir}/doc/%{name} %{buildroot}%{_datadir}/doc/%{name}-%{version}
 else
     mkdir -p %{buildroot}%{_datadir}/doc/%{name}-%{version}
 fi
 sed -e 's/TargetEnvironment=Unity/#TargetEnvironment=Unity/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
-#sed -e 's|/usr/lib/chromium-browser/libs|%{_libdir}/chromium/lib|g' -i %{buildroot}%{_libdir}/%{name}/resources/ffmpeg_preload_config.json
+sed -e 's|/usr/lib/chromium-browser/libs|%{_libdir}/%{name}/lib|g' -i %{buildroot}%{_libdir}/%{name}/resources/ffmpeg_preload_config.json
 
 # Install *.desktop file:
 desktop-file-install --vendor rfremix \
@@ -219,7 +219,7 @@ rm -rf %{buildroot}
 %changelog
 * Sat Jan 30 2016 carasin.berlogue <carasin DOT berlogue AT mail DOT ru> - 5:36.0.2120.0-1
 - Update to 36.0.2120.0
-- Revert changes of 2016.01.20
+- Revert changes of 5:36.0.2106.0-2 build
 
 * Wed Jan 20 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:36.0.2106.0-3
 - Fix ffmpeg_preload_config.json
