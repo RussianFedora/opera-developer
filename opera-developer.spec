@@ -55,9 +55,6 @@ Provides:   libssl.so.1.0.0(OPENSSL_1.0.1)
 Provides:   libffmpeg.so
 %endif
 
-Requires:   chromium-libffmpeg
-Obsoletes:  %{name}-libffmpeg
-
 %if 0%{?build_for_x86_64}
 %if !0%{?build_for_i386}
 ExclusiveArch:    x86_64
