@@ -7,7 +7,7 @@ Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
 Version:    37.0.2157.0
-Release:    1%{dist}
+Release:    2%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -158,6 +158,11 @@ popd
 # Fix <opera_sandbox> attributes:
 chmod 4755 %{buildroot}%{_libdir}/%{name}/opera_sandbox
 
+# Make binaries executable:
+pushd %{buildroot}%{_libdir}/%{name}
+    chmod +x libffmpeg.so libfreetype.so.6 opera-developer opera_autoupdate opera_crashreporter
+popd
+
 # Remove unused directories and tarball (for DEB source):
 %if !0%{?build_from_rpm}
     pushd %{buildroot}
@@ -217,6 +222,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Mar 04 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:37.0.2157.0-2
+- Make binaries executable
+
 * Thu Mar 03 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:37.0.2157.0-1
 - Update to 37.0.2157.0
 
