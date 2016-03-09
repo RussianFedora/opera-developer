@@ -7,7 +7,7 @@ Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
 Version:    37.0.2157.0
-Release:    3%{dist}
+Release:    4%{dist}
 Epoch:      5
 
 Group:      Applications/Internet
@@ -125,7 +125,7 @@ else
     mkdir -p %{buildroot}%{_datadir}/doc/%{name}-%{version}
 fi
 sed -e 's/TargetEnvironment=Unity/#TargetEnvironment=Unity/g' -i %{buildroot}%{_datadir}/applications/%{name}.desktop
-sed -e 's|/usr/lib/chromium-browser/libs|%{_libdir}/%{name}/lib|g' -i %{buildroot}%{_libdir}/%{name}/resources/ffmpeg_preload_config.json
+sed -e 's|/usr/lib/chromium-browser/libs|%{_libdir}/%{name}/lib_extra|g' -i %{buildroot}%{_libdir}/%{name}/resources/ffmpeg_preload_config.json
 
 # Install *.desktop file:
 desktop-file-install --vendor rfremix \
@@ -222,6 +222,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Mar 09 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:37.0.2157.0-4
+- Move libffmpeg.so search path into */lib_extra/ instead */lib/
+
 * Fri Mar 04 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:37.0.2157.0-3
 - Fix making binaries executable
 
