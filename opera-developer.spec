@@ -1,12 +1,12 @@
 %global build_for_x86_64 1
 %global build_for_i386 1
-%global build_from_rpm 0
+%global build_from_rpm 1
 %define debug_package %{nil}
 
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    37.0.2171.0
+Version:    38.0.2190.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -222,6 +222,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Apr 06 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:38.0.2190.0-1
+- Update to 38.0.2190.0
+
 * Sun Mar 20 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:37.0.2171.0-1
 - Update to 37.0.2171.0
 
