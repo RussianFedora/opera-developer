@@ -6,7 +6,7 @@
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    38.0.2205.0
+Version:    38.0.2213.0
 Release:    1%{dist}
 Epoch:      5
 
@@ -222,6 +222,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Apr 29 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:38.0.2213.0-1
+- Update to 38.0.2213.0
+
 * Thu Apr 21 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:38.0.2205.0-1
 - Update to 38.0.2205.0
 
