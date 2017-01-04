@@ -6,8 +6,13 @@
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    43.0.2403.0
-Release:    1%{dist}
+Version:    44.0.2463.0
+%if 0%{?fedora} >= 25
+Release:	1%{?dist}.R
+%else
+Release:	1%{?dist}
+%endif
+
 Epoch:      5
 
 Group:      Applications/Internet
@@ -222,6 +227,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jan 04 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:44.0.2463.0-1
+- Update to 44.0.2463.0
+
 * Tue Nov 08 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:43.0.2403.0-1
 - Update to 43.0.2403.0
 
