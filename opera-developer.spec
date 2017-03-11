@@ -6,7 +6,7 @@
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    44.0.2505.0
+Version:    45.0.2522.0
 %if 0%{?fedora} >= 25
 Release:	1%{?dist}.R
 %else
@@ -21,17 +21,17 @@ URL:        http://www.opera.com/browser
 
 %if 0%{?build_for_x86_64}
 %if 0%{?build_from_rpm}
-Source0:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.rpm
+Source0:    http://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.rpm
 %else
-Source0:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
+Source0:    http://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_amd64.deb
 %endif
 %endif
 
 %if 0%{?build_for_i386}
 %if 0%{?build_from_rpm}
-Source1:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_i386.rpm
+Source1:    http://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_i386.rpm
 %else
-Source1:    ftp://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_i386.deb
+Source1:    http://ftp.opera.com/pub/%{name}/%{version}/linux/%{name}_%{version}_i386.deb
 %endif
 %endif
 
@@ -227,6 +227,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Mar 12 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:45.0.2522.0-1
+- Update to 45.0.2522.0
+
 * Fri Feb 17 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:44.0.2505.0-1
 - Update to 44.0.2505.0
 
