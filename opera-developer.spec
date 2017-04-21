@@ -6,7 +6,7 @@
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    45.0.2548.0
+Version:    46.0.2567.0
 %if 0%{?fedora} >= 25
 Release:	1%{?dist}.R
 %else
@@ -219,14 +219,17 @@ rm -rf %{buildroot}
 %{_bindir}/%{name}
 %{_libdir}/%{name}/*
 %{_datadir}/applications/*.desktop
-%{_datadir}/icons/*
+%{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/mime/packages/*
-%{_datadir}/pixmaps/*
+%{_datadir}/pixmaps/*.xpm
 %if 0%{?fedora} >= 20
 %{_datadir}/appdata/rfremix-%{name}.appdata.xml
 %endif
 
 %changelog
+* Thu Mar 30 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:46.0.2567.0-1
+- Update to 46.0.2567.0
+
 * Thu Mar 30 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:45.0.2548.0-1
 - Update to 45.0.2548.0
 
