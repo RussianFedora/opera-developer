@@ -1,4 +1,4 @@
-%global build_for_x86_64 1
+%global build_for_x86_64 0
 %global build_for_i386 1
 %global build_from_rpm 1
 %define debug_package %{nil}
@@ -6,7 +6,7 @@
 Summary:        Fast and secure web browser (Developer stream)
 Summary(ru):    Быстрый и безопасный Веб-браузер (разрабатываемая версия)
 Name:           opera-developer
-Version:    46.0.2567.0
+Version:    46.0.2573.0
 %if 0%{?fedora} >= 25
 Release:	1%{?dist}.R
 %else
@@ -227,6 +227,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu May 18 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:46.0.2573.0-1
+- Update to 46.0.2573.0
+
 * Thu Mar 30 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:46.0.2567.0-1
 - Update to 46.0.2567.0
 
